@@ -1,0 +1,33 @@
+﻿.center
+	table(class="table table-stripped")
+		tr
+			th(ng-repeat="(k,v) in rows[0]") {{k}}
+			th(colspan='2')
+		tr(ng-repeat="row in rows")
+			td(ng-repeat="prop in row") {{prop}}
+			td
+				a(href='#') Редактировать
+			td
+				input.delete.btn.btn-danger(value='Удалить' type='submit')
+	
+	nav
+	ul.pagination
+		li
+			a(href="#" aria-label="Previous")
+				span(aria-hidden="true")&laquo;
+		li.active
+			a(href="#") 1
+		li
+			a(href="#") 2
+		li
+			a(href="#") 3
+		li
+			a(href="#") 4
+		li
+			a(href="#") 5
+		li
+			a(href="#" aria-label="Next")
+				span(aria-hidden="true")&raquo;
+
+	h2 Добавить товар
+	div(id="exampleForm")

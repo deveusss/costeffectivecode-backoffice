@@ -1,0 +1,67 @@
+﻿doctype html
+html(lang='en', ng-app='shop2', ng-cloack='')
+	head
+		meta(charset='utf-8')
+		title Bootstrap, from Twitter
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		link(href='/bower_components/bootstrap/dist/css/bootstrap.css', rel='stylesheet')
+		link(href='/content/screen.css', rel='stylesheet')
+	body
+		script(type='text/ng-template' id='orders.html')
+			include orders.jade
+		script(type='text/ng-template' id='products.html')
+			include _list.jade
+
+		.top
+			a.top__logo(href="#") We got to purify, from the inside out
+			.top__links
+				a.top__links-item(href="#products" ng-class="{true: 'active', false: ''}[$root.pageTitle=='Товары']")
+					.top__links-icon
+						i.icon.icon-product
+					.top__links-title Товары
+				a.top__links-item(href="#orders" ng-class="{true: 'active', false: ''}[$root.pageTitle=='Заказы']")
+					.top__links-icon
+						i.icon.icon-cart
+					.top__links-title Заказы
+					.top__links-counter 2
+				a.top__links-item(href="#")
+					.top__links-icon
+						i.icon.icon-time
+					.top__links-title 14 дней
+				a.top__links-item(href="#")
+					.top__links-icon
+						i.icon.icon-user
+					.top__links-title Привлечь клиентов
+				a.top__links-item(href="#")
+					.top__links-icon
+						i.icon.icon-settings
+					.top__links-title Настройки
+		//- title
+		.title
+			.title__wrap {{$root.pageTitle}}
+
+		.demo(style="padding: 20px; width: 400px;")
+			.alert.alert-success(role="alert") Все хорошо!
+			.alert.alert-info(role="alert") Просто информация
+			.alert.alert-warning(role="alert") Что-то не так...
+			.alert.alert-danger(role="alert")
+				strong Караул!
+				|  Сломалось все
+
+		.wrapper(ng-view)
+
+		script(src='/bower_components/jquery/dist/jquery.min.js')
+		script(src='/scripts/vendor/jquery.uploadPreview.min.js')
+
+		script(src='/bower_components/angular/angular.min.js')
+		script(src='/bower_components/angular-route/angular-route.min.js')
+		script(src='/bower_components/angular-resource/angular-resource.min.js')
+		script(src='/bower_components/angular-smart-table/dist/smart-table.min.js')
+		script(src='/bower_components/angular.CQRS/dist/angular-cqrs.min.js')
+        
+		script(src='/bower_components/angular-forms.js/dist/angular-forms.min.js')
+
+		script(src='/scripts/services/cecBackoffice.js')
+		script(src='/scripts/app.js')
