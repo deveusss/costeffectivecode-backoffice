@@ -33,7 +33,6 @@ namespace CostEffectiveCode.BackOffice
         public virtual IHttpActionResult Get()
         {
             var entities = LoadEntities();
-
             return Ok(entities);
         }
 
