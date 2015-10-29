@@ -12,10 +12,7 @@ namespace CostEffectiveCode.BackOffice
         private static WebApiControllerActivator _instance;
 
         [Obsolete("Register with castle", true)]
-        public static WebApiControllerActivator Instance
-        {
-            get { return _instance ?? (_instance = new WebApiControllerActivator()); }
-        }
+        public static WebApiControllerActivator Instance => _instance ?? (_instance = new WebApiControllerActivator());
 
         public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
         {
