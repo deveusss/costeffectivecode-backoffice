@@ -8,7 +8,7 @@
     "angular-bootstrap": "0.14.2",
     "angular-smart-table": "2.1.4",
     "angular-forms.js": "2.0.2",
-    "angular-file-upload": "2.0.2",
+    "angular-file-upload": "2.2.0",
     "angular.CQRS": "0.1.3"
   },
   "resolutions": {
