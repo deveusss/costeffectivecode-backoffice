@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityApiControllerBase.cs" />
     <Compile Include="EntityApiController.cs" />
     <Compile Include="EntityApiController.ViewModel.cs" />
     <Compile Include="Files\FileUploadAttribute.cs" />
