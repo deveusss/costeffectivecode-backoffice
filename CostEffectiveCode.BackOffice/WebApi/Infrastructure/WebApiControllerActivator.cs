@@ -4,7 +4,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
 
-namespace CostEffectiveCode.BackOffice
+namespace CostEffectiveCode.BackOffice.WebApi.Infrastructure
 {
     [Obsolete("Try to change DependencyResolver of HttpConfiguration class first!")]
     public class WebApiControllerActivator : IHttpControllerActivator

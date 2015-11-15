@@ -7,17 +7,18 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
+using CostEffectiveCode.BackOffice.WebApi.Controller;
 using CostEffectiveCode.Domain.Ddd.Entities;
 using CostEffectiveCode.Web;
 
-namespace CostEffectiveCode.BackOffice
+namespace CostEffectiveCode.BackOffice.WebApi.Infrastructure
 {
     public class RuntimeScaffoldingHttpControllerSelector : DefaultHttpControllerSelector
     {
         // Unfortunately there is no way to reuse _configuration from base class, nevertheless it's all the same
         private readonly HttpConfiguration _configuration;
 
-        // { dummies => Boommy.Domain.Dummy }
+        // { products => Store.Domain.Product }
         private readonly Dictionary<string, Type> _typesDictionary;
 
         public RuntimeScaffoldingHttpControllerSelector(

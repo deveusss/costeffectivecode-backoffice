@@ -10,7 +10,7 @@ using CostEffectiveCode.Domain.Cqrs.Queries;
 using CostEffectiveCode.Domain.Ddd.Entities;
 using CostEffectiveCode.Domain.Ddd.UnitOfWork;
 
-namespace CostEffectiveCode.BackOffice
+namespace CostEffectiveCode.BackOffice.WebApi.Controller
 {
     public class EntityApiController<TEntity, TViewModel> : EntityApiControllerBase<TEntity>
         where TEntity : class, IEntityBase<long>

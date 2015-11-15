@@ -7,9 +7,8 @@ using CostEffectiveCode.Domain.Cqrs.Queries;
 using CostEffectiveCode.Domain.Ddd.Entities;
 using CostEffectiveCode.Domain.Ddd.UnitOfWork;
 
-namespace CostEffectiveCode.BackOffice
+namespace CostEffectiveCode.BackOffice.WebApi.Controller
 {
-    //[System.Web.Mvc.Authorize]
     public class EntityApiController<TEntity> : EntityApiControllerBase<TEntity> 
         where TEntity : class, IEntityBase<long>
     {

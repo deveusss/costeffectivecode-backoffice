@@ -1,5 +1,7 @@
 ﻿using System;
 
+// It looks like this stuff could be excluded from the project
+
 namespace CostEffectiveCode.BackOffice.Models
 {
     [Flags]
