@@ -30,7 +30,7 @@ namespace CostEffectiveCode.BackOffice
 
             if (!assemblies.Any())
             {
-                throw new ArgumentException("Empty collection of assemblies given", "assemblies");
+                throw new ArgumentException("Empty collection of assemblies given", nameof(assemblies));
             }
 
             _typesDictionary = new Dictionary<string, Type>();
