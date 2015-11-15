@@ -13,9 +13,8 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         where TEntity : class, IEntityBase<long>
     {
         public EntityApiController(IQueryFactory queryFactory, 
-            ICommandFactory commandFactory, 
-            IScope<IUnitOfWork> uowScope)
-            :base(queryFactory, commandFactory, uowScope)
+            ICommandFactory commandFactory)
+            :base(queryFactory, commandFactory)
         {
         }
 
@@ -35,9 +34,9 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 
             //_db.Entry(entity).State = EntityState.Modified;
 
-#warning please use UpdateCommand instead (will be avaialable in CostEffectiveCode 2.0.0)
-            UowScope.GetScoped().Save(entity);
-            UowScope.GetScoped().Commit();
+            CommandFactory
+                .GetUpdateCommand<TEntity>()
+                .Execute(entity);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

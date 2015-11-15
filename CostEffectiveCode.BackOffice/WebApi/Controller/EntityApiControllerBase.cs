@@ -17,13 +17,11 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         protected const string DefaultApiRouteName = "DefaultApi";
         protected readonly IQueryFactory QueryFactory;
         protected readonly ICommandFactory CommandFactory;
-        protected readonly IScope<IUnitOfWork> UowScope;
 
-        public EntityApiControllerBase(IQueryFactory queryFactory, ICommandFactory commandFactory, IScope<IUnitOfWork> uowScope)
+        public EntityApiControllerBase(IQueryFactory queryFactory, ICommandFactory commandFactory)
         {
             QueryFactory = queryFactory;
             CommandFactory = commandFactory;
-            UowScope = uowScope;
         }
 
         // GET: api/product

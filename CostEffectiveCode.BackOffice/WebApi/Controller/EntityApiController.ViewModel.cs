@@ -18,8 +18,8 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
     {
         protected readonly IMapper Mapper;
 
-        public EntityApiController(IQueryFactory queryFactory, ICommandFactory commandFactory, IScope<IUnitOfWork> uowScope, IMapper mapper)
-            : base(queryFactory, commandFactory, uowScope)
+        public EntityApiController(IQueryFactory queryFactory, ICommandFactory commandFactory, IMapper mapper)
+            : base(queryFactory, commandFactory)
         {
             Mapper = mapper;
         }
@@ -83,9 +83,9 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                     return BadRequest();
                 }
 
-#warning please use UpdateCommand instead (will be avaialable in CostEffectiveCode 2.0.0)
-                UowScope.GetScoped().Save(entity);
-                UowScope.GetScoped().Commit();
+                CommandFactory
+                    .GetUpdateCommand<TEntity>()
+                    .Execute(entity);
 
                 return StatusCode(HttpStatusCode.NoContent);
             }
