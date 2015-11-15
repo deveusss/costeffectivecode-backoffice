@@ -1,5 +1,5 @@
 /CostEffectiveCode.BackOffice/bin
-
+*.user
 
 
 /CostEffectiveCode.BackOffice/obj
