@@ -34,32 +34,22 @@ namespace CostEffectiveCode.BackOffice.WebApi.Infrastructure
                 throw new ArgumentException("Empty collection of assemblies given", nameof(assemblies));
             }
 
-            _typesDictionary = new Dictionary<string, Type>();
-
             var types = new List<Type>();
             foreach (var a in assemblies)
             {
-                types.AddRange(a.GetTypes());
+                types.AddRange(
+                    a.DefinedTypes
+                    .Where(x => x.IsClass && !x.IsAbstract && typeof(IEntityBase<>).IsAssignableFrom(x) &&
+                        ((runtimeScaffoldingApproach == RuntimeScaffoldingApproach.Allow && x.IsDefined(typeof(AllowScaffoldAttribute)))
+                        || (runtimeScaffoldingApproach == RuntimeScaffoldingApproach.Deny && !x.IsDefined(typeof(DenyScaffoldAttribute))))
+                    ));
             }
 
-            var entityTypes = types.Where(x => x.IsClass && !x.IsAbstract && typeof(IEntity).IsAssignableFrom(x));
-
-            if (runtimeScaffoldingApproach == RuntimeScaffoldingApproach.Allow)
+            _typesDictionary = new Dictionary<string, Type>();
+            foreach (var x in types)
             {
-                entityTypes = entityTypes
-                    .Where(x => x.IsDefined(typeof(AllowScaffoldAttribute)));
+                _typesDictionary[x.Name.ToLowerInvariant()] = x;
             }
-            else
-            {
-                entityTypes = entityTypes
-                    .Where(x => !x.IsDefined(typeof(DenyScaffoldAttribute)));
-            }
-
-            foreach (var x in entityTypes)
-            {
-                _typesDictionary.Add(x.Name.ToLowerInvariant(), x);
-            }
-
         }
 
         public override HttpControllerDescriptor SelectController(HttpRequestMessage request)
@@ -87,7 +77,10 @@ namespace CostEffectiveCode.BackOffice.WebApi.Infrastructure
             var name = controllerName.ToLowerInvariant();
 
             var entityType = _typesDictionary[name];
-            var entityApiControllerType = typeof(EntityApiController<>).MakeGenericType(entityType);
+
+            var pkType = entityType.GetGenericArguments().First();
+
+            var entityApiControllerType = typeof(EntityApiController<,>).MakeGenericType(entityType, pkType);
 
             return new HttpControllerDescriptor(_configuration, "EntityApi", entityApiControllerType);
         }
