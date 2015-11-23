@@ -16,6 +16,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 {
     public class EntityApiController<TEntity, TPrimaryKey, TViewModel> : ApiController
         where TEntity : class, IEntityBase<TPrimaryKey>
+        where TPrimaryKey : struct, IComparable<TPrimaryKey>
     {
         protected readonly IQueryFactory QueryFactory;
         protected readonly ICommandFactory CommandFactory;
@@ -157,7 +158,9 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         
         protected TEntity LoadById(TPrimaryKey id)
         {
-            return GetBaseQuery().Where(q => q.Id.Equals(id)).Single();
+            return GetBaseQuery()
+                .Where(x => x.Id.CompareTo(id) == 0)
+                .Single();
         }
 
         protected IEnumerable<TEntity> LoadEntities()
