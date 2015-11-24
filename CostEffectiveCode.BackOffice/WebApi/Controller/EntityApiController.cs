@@ -88,8 +88,8 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 }
 
                 CommandFactory
-                    .GetUpdateCommand<TEntity>()
-                    .Execute(entity);
+                    .GetCommitCommand()
+                    .Execute();
 
                 return StatusCode(HttpStatusCode.NoContent);
             }
