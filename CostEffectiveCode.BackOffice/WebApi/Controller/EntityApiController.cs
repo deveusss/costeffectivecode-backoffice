@@ -152,6 +152,10 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             return BadRequest(e.Message);
         }
 
+        // Base check for both Get(id) and Get()
+        protected virtual Expression<Func<TEntity, bool>> BaseWhere => x => true;
+
+        // Condition for list action: for Get()
         protected virtual Expression<Func<TEntity, bool>> Where => x => true;
 
         protected virtual Expression<Func<TEntity, object>> Include => null;
@@ -165,14 +169,16 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 
         protected IEnumerable<TEntity> LoadEntities()
         {
-            return GetBaseQuery().All();
+            return GetBaseQuery()
+                .Where(Where)
+                .All();
         }
 
         private IQuery<TEntity, IExpressionSpecification<TEntity>> GetBaseQuery()
         {
             var query = QueryFactory
                 .GetQuery<TEntity>()
-                .Where(Where);
+                .Where(BaseWhere);
 
             if (Include != null)
                 query = query.Include(Include);
