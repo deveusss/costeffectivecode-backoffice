@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CostEffectiveCode, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CostEffectiveCode.2.0.1\lib\net451\CostEffectiveCode.dll</HintPath>
+    <Reference Include="CostEffectiveCode, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CostEffectiveCode.2.0.2\lib\net451\CostEffectiveCode.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
@@ -98,13 +98,15 @@
     <Compile Include="WebApi\Controller\EntityApiController.Entity.cs" />
     <Compile Include="WebApi\Controller\EntityApiController.cs" />
     <Compile Include="Files\FileUploadAttribute.cs" />
-    <Compile Include="Models\ScaffoldVisibleAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApi\Infrastructure\RuntimeScaffoldingHttpControllerSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
