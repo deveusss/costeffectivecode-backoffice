@@ -115,7 +115,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 .GetCreateCommand<TEntity>()
                 .Execute(entity);
 
-                return CreatedAtRoute(DefaultApiRouteName, new { id = entity.Id }, entity);
+                return CreatedAtRoute(DefaultApiRouteName, new { id = entity.Id }, entity.Id);
             }
             catch (Exception e)
             {
