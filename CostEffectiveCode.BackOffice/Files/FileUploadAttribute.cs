@@ -7,6 +7,7 @@ namespace CostEffectiveCode.BackOffice.Files
 {
     [AttributeUsage(AttributeTargets.Property)]
     [PublicAPI]
+    [Obsolete("useless attribute?")]
     public class FileUploadAttribute : Attribute
     {
     }

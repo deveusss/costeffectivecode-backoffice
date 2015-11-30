@@ -81,10 +81,12 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 
             try
             {
+#warning TODO: Refactor ASAP! entity and commit command are not connected to each other. You should read entity from QueryFactory first and then update it with given data (mapped from ViewModel)
+
                 var entity = Mapper.Map<TEntity>(model);
-                if (!entity.Id.Equals(id))
+                if (!entity.Id.Equals(id)) // maybe, we should better use [ x => x.Id.CompareTo(id) == 0 ]
                 {
-                    return BadRequest();
+                    return BadRequest("Wrong id specified");
                 }
 
                 CommandFactory
@@ -152,6 +154,10 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             return BadRequest(e.Message);
         }
 
+        // Base check for both Get(id) and Get()
+        protected virtual Expression<Func<TEntity, bool>> BaseWhere => x => true;
+
+        // Condition for list action: for Get()
         protected virtual Expression<Func<TEntity, bool>> Where => x => true;
 
         protected virtual Expression<Func<TEntity, object>> Include => null;
@@ -165,14 +171,16 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 
         protected IEnumerable<TEntity> LoadEntities()
         {
-            return GetBaseQuery().All();
+            return GetBaseQuery()
+                .Where(Where)
+                .All();
         }
 
         private IQuery<TEntity, IExpressionSpecification<TEntity>> GetBaseQuery()
         {
             var query = QueryFactory
                 .GetQuery<TEntity>()
-                .Where(Where);
+                .Where(BaseWhere);
 
             if (Include != null)
                 query = query.Include(Include);
