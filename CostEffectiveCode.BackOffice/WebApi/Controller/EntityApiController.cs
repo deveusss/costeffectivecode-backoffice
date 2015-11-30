@@ -146,7 +146,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             }
         }
 
-        private IHttpActionResult ProcessBadRequest(Exception e)
+        protected IHttpActionResult ProcessBadRequest(Exception e)
         {
             Logger.Error(e);
             return BadRequest(e.Message);
