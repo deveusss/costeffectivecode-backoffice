@@ -81,10 +81,10 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
 
             try
             {
-#warning TODO: Refactor ASAP! entity and commit command are not connected to each other. You should read entity from QueryFactory first and then update it with given data (mapped from ViewModel)
+                var entity = LoadById(id);
+                Mapper.Map(model, entity);
 
-                var entity = Mapper.Map<TEntity>(model);
-                if (!entity.Id.Equals(id)) // maybe, we should better use [ x => x.Id.CompareTo(id) == 0 ]
+                if (entity.Id.CompareTo(id) != 0)
                 {
                     return BadRequest("Wrong id specified");
                 }
@@ -114,8 +114,8 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 var entity = Mapper.Map<TEntity>(model);
 
                 CommandFactory
-                .GetCreateCommand<TEntity>()
-                .Execute(entity);
+                    .GetCreateCommand<TEntity>()
+                    .Execute(entity);
 
                 return CreatedAtRoute(DefaultApiRouteName, new { id = entity.Id }, entity.Id);
             }
