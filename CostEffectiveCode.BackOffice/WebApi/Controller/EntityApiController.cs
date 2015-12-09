@@ -14,7 +14,7 @@ using CostEffectiveCode.Domain.Ddd.Specifications;
 
 namespace CostEffectiveCode.BackOffice.WebApi.Controller
 {
-    public class EntityApiController<TEntity, TPrimaryKey, TViewModel> : ApiController
+    public class EntityApiController<TEntity, TPrimaryKey, TReadViewModel, TModifyViewModel> : ApiController
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : struct, IComparable<TPrimaryKey>
     {
@@ -33,7 +33,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             Logger = logger;
         }
 
-        //[ResponseType(typeof(IEnumerable<TViewModel>))]
+        //[ResponseType(typeof(IEnumerable<TReadViewModel>))]
         public virtual IHttpActionResult Get()
         {
             try
@@ -41,7 +41,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 return Ok(LoadEntities()
                     .Select(x =>
                     {
-                        var viewModel = Mapper.Map<TViewModel>(x);
+                        var viewModel = Mapper.Map<TReadViewModel>(x);
 
                         PostProcessViewModel(viewModel, x);
                         return viewModel;
@@ -53,14 +53,14 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             }
         }
 
-        //[ResponseType(typeof(TViewModel))]
+        //[ResponseType(typeof(TReadViewModel))]
         public virtual IHttpActionResult Get(TPrimaryKey id)
         {
             try
             {
                 var entity = LoadById(id);
 
-                var viewModel = Mapper.Map<TViewModel>(entity);
+                var viewModel = Mapper.Map<TReadViewModel>(entity);
                 PostProcessViewModel(viewModel, entity);
 
                 return Ok(viewModel);
@@ -72,7 +72,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         }
 
         [ResponseType(typeof(void))]
-        public virtual IHttpActionResult Put(TPrimaryKey id, TViewModel model)
+        public virtual IHttpActionResult Put(TPrimaryKey id, TModifyViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -101,8 +101,8 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             }
         }
 
-        //[ResponseType(typeof(TViewModel))]
-        public virtual IHttpActionResult Post(TViewModel model)
+        //[ResponseType(typeof(TPrimaryKey))]
+        public virtual IHttpActionResult Post(TModifyViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             }
         }
 
-        //[ResponseType(typeof(TViewModel))]
+        //[ResponseType(typeof(TPrimaryKey))]
         public virtual IHttpActionResult Delete(TPrimaryKey id)
         {
             try
@@ -140,7 +140,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                     .GetDeleteCommand<TEntity>()
                     .Execute(entity);
 
-                return Ok(entity);
+                return Ok(entity.Id);
             }
             catch (Exception e)
             {
@@ -188,7 +188,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
             return query;
         }
 
-        protected virtual void PostProcessViewModel(TViewModel viewModel, TEntity entity)
+        protected virtual void PostProcessViewModel(TReadViewModel viewModel, TEntity entity)
         {
         }
     }

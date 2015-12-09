@@ -95,7 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebApi\Controller\EntityApiController.Entity.cs" />
+    <Compile Include="WebApi\Controller\EntityApiController.Overloads.cs" />
     <Compile Include="WebApi\Controller\EntityApiController.cs" />
     <Compile Include="Files\FileUploadAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
