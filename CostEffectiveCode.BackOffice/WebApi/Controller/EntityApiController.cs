@@ -34,11 +34,11 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         }
 
         //[ResponseType(typeof(IEnumerable<TReadViewModel>))]
-        public virtual IHttpActionResult Get()
+        public virtual IHttpActionResult Get(int? paginationPageNumber = null, int? paginationTakeCount = null)
         {
             try
             {
-                return Ok(LoadEntities()
+                return Ok(LoadEntities(paginationPageNumber, paginationTakeCount)
                     .Select(x =>
                     {
                         var viewModel = Mapper.Map<TReadViewModel>(x);
@@ -161,7 +161,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         protected virtual Expression<Func<TEntity, bool>> Where => x => true;
 
         protected virtual Expression<Func<TEntity, object>> Include => null;
-        
+
         protected TEntity LoadById(TPrimaryKey id)
         {
             return GetBaseQuery()
@@ -169,11 +169,15 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 .Single();
         }
 
-        protected IEnumerable<TEntity> LoadEntities()
+        protected IEnumerable<TEntity> LoadEntities(int? pageNumber = null, int? takeCount = null)
         {
-            return GetBaseQuery()
-                .Where(Where)
-                .All();
+            var query = GetBaseQuery()
+                .Where(Where);
+
+            if (pageNumber.HasValue && takeCount.HasValue)
+                return query.Paged(pageNumber.Value, takeCount.Value);
+
+            return query.All();
         }
 
         private IQuery<TEntity, IExpressionSpecification<TEntity>> GetBaseQuery()
