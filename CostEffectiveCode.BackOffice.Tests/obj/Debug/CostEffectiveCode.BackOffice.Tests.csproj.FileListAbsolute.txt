@@ -1,0 +1,1 @@
+C:\csharp_apps\SimCenter\CostEffectiveCode.BackOffice\CostEffectiveCode.BackOffice.Tests\obj\Debug\CostEffectiveCode.BackOffice.Tests.csprojResolveAssemblyReference.cache
