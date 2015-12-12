@@ -9,7 +9,9 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using CostEffectiveCode.BackOffice.WebApi.Controller;
 using CostEffectiveCode.Domain.Ddd.Entities;
-using CostEffectiveCode.Web;
+using AllowScaffoldAttribute = CostEffectiveCode.BackOffice.Attributes.AllowScaffoldAttribute;
+using DenyScaffoldAttribute = CostEffectiveCode.BackOffice.Attributes.DenyScaffoldAttribute;
+using RuntimeScaffoldingApproach = CostEffectiveCode.BackOffice.Attributes.RuntimeScaffoldingApproach;
 
 namespace CostEffectiveCode.BackOffice.WebApi.Infrastructure
 {
