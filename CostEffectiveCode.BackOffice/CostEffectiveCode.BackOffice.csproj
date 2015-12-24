@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CostEffectiveCode, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CostEffectiveCode.2.2.0\lib\net45\CostEffectiveCode.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\CostEffectiveCode.2.2.0\lib\net45\CostEffectiveCode.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=10.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
