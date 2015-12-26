@@ -160,7 +160,7 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
         // Condition for list action: for Get()
         protected virtual Expression<Func<TEntity, bool>> Where => x => true;
 
-        protected virtual Expression<Func<TEntity, object>> Include => null;
+        protected virtual IEnumerable<Expression<Func<TEntity, object>>> Include => null;
 
         protected TEntity LoadById(TPrimaryKey id)
         {
@@ -187,7 +187,12 @@ namespace CostEffectiveCode.BackOffice.WebApi.Controller
                 .Where(BaseWhere);
 
             if (Include != null)
-                query = query.Include(Include);
+            {
+                foreach (var expression in Include)
+                {
+                    query = query.Include(expression);
+                }
+            }
 
             return query;
         }
